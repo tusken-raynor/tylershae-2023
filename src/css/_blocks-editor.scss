@@ -1,0 +1,4 @@
+// Add blocks admin editor specific styling
+html :where(.wp-block) {
+  max-width: initial;
+}

@@ -1,0 +1,58 @@
+@include scope-with("blocks/image-collection.php") {
+  .image-collection-block {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    @media (max-width: $small-width) {
+      flex-direction: column;
+    }
+
+    &.mnp {
+      @media (max-width: $small-width) {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+  }
+
+  .row:scoped {
+    display: flex;
+    gap: 12px;
+    > * {
+      flex: 1 1 50%;
+    }
+    .mb > & {
+      @media (max-width: $xsmall-width) {
+        flex-direction: column;
+      }
+    }
+  }
+  .wrapper:scoped {
+    position: relative;
+    display: block;
+    .previewed-image.hover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 0.1s ease;
+      width: 100%;
+      height: 100%;
+      img {
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    @include hover {
+      .previewed-image.loaded ~ .previewed-image.hover.loaded {
+        opacity: 1;
+      }
+    }
+  }
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+}

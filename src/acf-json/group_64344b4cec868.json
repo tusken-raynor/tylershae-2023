@@ -1,0 +1,178 @@
+{
+    "key": "group_64344b4cec868",
+    "title": "Site Popups",
+    "fields": [
+        {
+            "key": "field_64344b5c0b1a6",
+            "label": "Manage Popups",
+            "name": "site_popups",
+            "type": "flexible_content",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layouts": {
+                "layout_64344b7d9f79a": {
+                    "key": "layout_64344b7d9f79a",
+                    "name": "basic",
+                    "label": "Basic",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_64344e3e5bf17",
+                            "label": "Name",
+                            "name": "name",
+                            "type": "text",
+                            "instructions": "This value does not appear anywhere, but is used as an identifier. Popup name must only use lowercase letters and hyphens.",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": ""
+                        },
+                        {
+                            "key": "field_64344b900b1a7",
+                            "label": "Title",
+                            "name": "title",
+                            "type": "text",
+                            "instructions": "<em>Required<\/em>",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": ""
+                        },
+                        {
+                            "key": "field_64344b970b1a8",
+                            "label": "Message",
+                            "name": "message",
+                            "type": "wysiwyg",
+                            "instructions": "<em>Optional<\/em>",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "tabs": "all",
+                            "toolbar": "full",
+                            "media_upload": 0,
+                            "delay": 0
+                        },
+                        {
+                            "key": "field_64344bb70b1a9",
+                            "label": "Image",
+                            "name": "image",
+                            "type": "image",
+                            "instructions": "<em>Optional<\/em><br>\r\nImage should be a certain size wide, and can be any height",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "preview_size": "thumbnail",
+                            "library": "all",
+                            "min_width": "",
+                            "min_height": "",
+                            "min_size": "",
+                            "max_width": "",
+                            "max_height": "",
+                            "max_size": "",
+                            "mime_types": ""
+                        },
+                        {
+                            "key": "field_64344c540b1aa",
+                            "label": "Content Order",
+                            "name": "content_order",
+                            "type": "select",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "std": "Message then image",
+                                "rev": "Image then message"
+                            },
+                            "default_value": [],
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "ajax": 0,
+                            "placeholder": ""
+                        },
+                        {
+                            "key": "field_64344c970b1ab",
+                            "label": "Always available?",
+                            "name": "always_available",
+                            "type": "true_false",
+                            "instructions": "Only mark this as true if the popup has the ability to be triggered by the client. If the popup is meant to triggered only by the admin, leave blank.",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "default_value": 0,
+                            "ui": 0,
+                            "ui_on_text": "",
+                            "ui_off_text": ""
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                }
+            },
+            "button_label": "Add Popup",
+            "min": "",
+            "max": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "acf-options-site-settings"
+            }
+        ]
+    ],
+    "menu_order": 4,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1681149779
+}

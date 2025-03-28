@@ -1,0 +1,17 @@
+@include scope-with("blocks/image-placer.php") {
+  .image-placer-block {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 54px;
+  }
+  .image:scoped {
+    max-width: 100%;
+    img {
+      max-width: 100%;
+      width: auto;
+      height: auto;
+      display: block;
+    }
+  }
+}

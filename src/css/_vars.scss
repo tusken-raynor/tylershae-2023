@@ -1,0 +1,31 @@
+// Add variables for styling
+$full-num: 1440;
+$full-width-up: $full-num * 1px + 1px;
+$full-width: $full-num * 1px;
+$container-num: 972;
+$container-width-up: $container-num * 1px + 1px;
+$container-width: $container-num * 1px;
+$large-num: 1000;
+$large-width-up: $large-num * 1px + 1px;
+$large-width: $large-num * 1px;
+$medium-num: 750;
+$medium-width-up: $medium-num * 1px + 1px;
+$medium-width: $medium-num * 1px;
+$small-num: 600;
+$small-width-up: $small-num * 1px + 1px;
+$small-width: $small-num * 1px;
+$xsmall-num: 400;
+$xsmall-width-up: $xsmall-num * 1px + 1px;
+$xsmall-width: $xsmall-num * 1px;
+
+$base-padding-full: 76px;
+$base-padding: bend($base-padding-full, 42px, $container-width, $medium-width);
+$base-padding-m: bend(42px, 24px, $small-width, $xsmall-width);
+
+$fnt-alm: "Almarai", sans-serif;
+
+$orange: #a491db;
+$grey: #6a6a6a;
+$dark-grey: #272727;
+$yeller: #ffea9f;
+$darkness: #1a1a1a; // no parents

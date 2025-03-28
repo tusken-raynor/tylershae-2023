@@ -1,0 +1,99 @@
+@include scope-with("blocks/contact-us.php") {
+  .contact-us-block {
+    padding: 24px;
+  }
+
+  h2 {
+    font: 700 bend(36px, 24px, $medium-width, $xsmall-width) / 120% $fnt-alm;
+    padding-bottom: 1em;
+  }
+
+  .frm_fields_container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .frm_form_field {
+    width: 100%;
+    position: relative;
+  }
+  .frm_half {
+    width: calc(50% - 8px);
+    @media (max-width: $small-width) {
+      width: 100%;
+    }
+  }
+  #frm_field_5_container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  legend,
+  .frm_verify,
+  .frm_required {
+    display: none;
+  }
+
+  label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(0.5em, 12px);
+    transition: transform 0.2s ease;
+    background-color: #fff;
+    padding: 0 4px;
+    border-radius: 4px;
+    body.bg-style-dark & {
+      background-color: $darkness;
+    }
+
+    :focus-within > &,
+    .has-value > & {
+      transform: scale(0.9) translate(1em, -50%);
+    }
+    .has-value > & {
+      color: $grey;
+    }
+    :focus-within > & {
+      color: $orange;
+    }
+  }
+
+  input,
+  textarea {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 16px;
+    padding: 8px;
+    border: 2px solid $grey;
+    border-radius: 4px;
+    body.bg-style-dark & {
+      background-color: $darkness;
+      color: #fff;
+    }
+    font-size: 16px;
+    line-height: 1.5;
+    &:focus {
+      outline: none;
+      border-color: $orange;
+    }
+  }
+
+  .frm_button_submit {
+    background-color: $orange;
+    border-radius: 100px;
+    border: 2px solid $orange;
+    color: #fff;
+    transition: color 0.2s linear, background-color 0.2s linear;
+    font-size: 16px;
+    padding: 0.5em 1.5em;
+    text-transform: uppercase;
+    font-weight: 700;
+    cursor: pointer;
+    @include hover {
+      background-color: #fff;
+      color: $orange;
+    }
+  }
+}

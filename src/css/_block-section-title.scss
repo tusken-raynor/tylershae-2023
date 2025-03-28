@@ -1,0 +1,20 @@
+@include scope-with("blocks/section-title.php") {
+  .section-title-block {
+    padding: bend(128px, 48px, $large-width, $small-width) 16px 34px;
+    text-align: center;
+  }
+  .section-title {
+    display: inline-block;
+    margin-bottom: 0;
+    font: 400 bend(27px, 21px, $medium-width, $xsmall-width) / 120% $fnt-alm;
+    border: 1px solid;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    padding-left: 0.9em;
+    padding-right: 0.9em;
+  }
+  .section-title-link {
+    display: contents;
+    color: inherit;
+  }
+}

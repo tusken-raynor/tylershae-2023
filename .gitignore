@@ -1,0 +1,15 @@
+working
+dist
+node_modules
+nbproject
+.DS_Store
+*.mp4
+*.log
+.env
+.cache
+*.db
+src/img/uploads
+tylershae-2021/img/uploads
+src/acf_starter
+
+.idea/

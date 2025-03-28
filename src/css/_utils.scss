@@ -1,0 +1,76 @@
+.container {
+  max-width: $container-width;
+  margin: 0 auto;
+  &-full {
+    max-width: $full-width;
+    margin: 0 auto;
+  }
+  &-large {
+    max-width: $large-width;
+    margin: 0 auto;
+  }
+  &-medium {
+    max-width: $medium-width;
+    margin: 0 auto;
+  }
+  &-small {
+    max-width: $small-width;
+    margin: 0 auto;
+  }
+}
+
+.social-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 3px;
+  font-size: 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: block;
+  transition: transform 0.2s linear;
+  @include hover {
+    transform: scale(1.08);
+  }
+  &.facebook {
+    background-image: url(../img/social-icon-facebook.svg);
+  }
+  &.instagram {
+    background-image: url(../img/social-icon-instagram.svg);
+  }
+  &.behance {
+    background-image: url(../img/social-icon-behance.svg);
+  }
+  &.linkedin {
+    background-image: url(../img/social-icon-linkedin.svg);
+  }
+}
+
+.previewed-image {
+  position: relative;
+  overflow: hidden;
+  img {
+    display: block;
+    opacity: 0;
+    position: relative;
+    transition: opacity 0.3s linear;
+  }
+
+  &::before {
+    position: absolute;
+    content: '';
+    --overfill: 0.15;
+    inset: calc(var(--overfill) * -100%);
+    background: #555 repeat center/calc(1 / (1 + var(--overfill) * 2) * 100%) auto;
+    background-image: var(--preview);
+    filter: blur(18px);
+  }
+
+  &.loaded img {
+    opacity: 1;
+  }
+
+  &.remove-preview::before {
+    display: none;
+  }
+}

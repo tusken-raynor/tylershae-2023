@@ -1,0 +1,92 @@
+@include scope-with("blocks/about-section.php") {
+  .about-section-block {
+    padding: 24px;
+  }
+  .inner-wrapper {
+    padding: 92px bend(132px, 32px, 1260px, 1060px) 50px;
+    border-radius: 30px;
+    max-width: 1212px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    background: linear-gradient(
+      133.75deg,
+      #d8673d 7.8%,
+      rgba(255, 234, 159, 0.79) 53.38%,
+      #116ff0 71.96%,
+      $yeller 85.35%
+    );
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    position: relative;
+    @media (max-width: $medium-width) {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    > * {
+      position: relative;
+      z-index: 1;
+    }
+    &::before {
+      content: "";
+      background: linear-gradient(131.3deg, #1e0901 -13.07%, $darkness 82.52%);
+      position: absolute;
+      z-index: 0;
+      inset: 1px;
+      border-radius: inherit;
+    }
+  }
+  .about-section-content {
+    color: #fff;
+    width: 60.9708%;
+    font-size: bend(100px, 80px, 900px, $medium-width-up);
+    @media (max-width: $medium-width) {
+      width: initial;
+      font-size: bend(100px, 80px, $medium-width, $xsmall-width);
+    }
+
+    h2 {
+      font: 400 0.24em / 120% $fnt-alm;
+      margin-bottom: 1.2em;
+      text-align: center;
+    }
+    &:scoped p {
+      font: 400 0.2em / 111.5% $fnt-alm;
+      margin-bottom: 1em;
+      font-weight: 300;
+    }
+  }
+  .about-section-image:scoped {
+    border-bottom-left-radius: calc(var(--qcw, 290px) / 2.0714);
+    width: 30.5912%;
+    overflow: hidden;
+    @media (max-width: $medium-width) {
+      margin-bottom: 32px;
+      width: initial;
+      border-top-right-radius: calc(var(--qcw, 290px) / 2.0714);
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      display: block;
+    }
+  }
+
+  .social-links {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding-top: 50px;
+  }
+  .social-icon {
+    transition: transform 0.2s ease-in-out;
+    @include hover {
+      transform: scale(1.1);
+    }
+  }
+}

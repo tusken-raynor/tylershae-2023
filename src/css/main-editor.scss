@@ -1,0 +1,16 @@
+// this is for the editor styling of blocks. Any styling that isn't specific
+// to a block should be imported here. All block-specific styling should be included
+// in the _blocks.scss file. Most likely, very little changes, if any, need to be
+// made to this file.
+@use "sass:math";
+@use "sass:color";
+@use "sass:map";
+
+@import "_vars.scss";
+@import "_functions.scss";
+// blocks
+@import "_blocks.scss";
+@import "_blocks-editor.scss";
+
+/* utility styling */
+@import "_utils.scss";

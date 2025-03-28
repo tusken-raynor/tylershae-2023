@@ -1,0 +1,30 @@
+// Add generic base styling
+
+body {
+  // Set style that creates a document flow that always keeps the footer
+  // spaced appropriately from the header
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: $grey;
+  font: 400 16px/120% $fnt-alm;
+  > main {
+    flex-grow: 1;
+  }
+  &.bg-style-dark {
+    color: #fff;
+    background-color: $darkness;
+  }
+}
+
+#wpadminbar {
+  // Hide the fricken wordpress admin menu so it doesn't screw with styles.
+  transform: translateY(calc(-100% + 7px));
+  opacity: 0;
+  transition: all 0.2s ease;
+  &:hover {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,135 @@
+// SASS FUNCTIONS AND MIXINS
+
+// Split a string in scss
+@function str-split($string, $separator) {
+  // empty array/list
+  $split-arr: ();
+  // first index of separator in string
+  $index: str-index($string, $separator);
+  // loop through string
+  @while $index != null {
+    // get the substring from the first character to the separator
+    $item: str-slice($string, 1, $index - 1);
+    // push item to array
+    $split-arr: append($split-arr, $item);
+    // remove item and separator from string
+    $string: str-slice($string, $index + 1);
+    // find new index of separator
+    $index: str-index($string, $separator);
+  }
+  // add the remaining string to list (the last item)
+  $split-arr: append($split-arr, $string);
+
+  @return $split-arr;
+}
+
+// Uses min & max css functions to create smooth transition for responsive inline
+// style using a high and a low value and when the $bend-point screen size is hit
+// the value shrinks proportional to the screen until the min size is reached.
+// If an end-point is defined, the transition function is invoked to make the
+// value transition between max & min as it goes from $bend-point to $end-point
+// instead of shrinking proportional to the window
+@function bend($max, $min, $bend-point, $end-point: -1) {
+  @if ($end-point != -1) {
+    @return transition($max, $min, $bend-point, $end-point);
+  }
+  $formula: (math.div($max, $bend-point) * 100vw);
+  @return #{"min(" + $max + ",max(" + $formula + "," + $min + "))"};
+}
+
+// Transitions the value of $a and $b where $a is returned when
+// screen size matches $start-size and $b is returned when the
+// screen size matches $end-size and returns a mix of the two
+// values while between those screen sizes
+@function transition($a, $b, $start-size, $end-size) {
+  $diff: "100vw - " + #{$end-size};
+  // If the starting num is smaller than the end num, reverse the formula
+  @if ($a < $b) {
+    $diff: #{$start-size} + " - 100vw";
+    $temp: $a;
+    $a: $b;
+    $b: $temp;
+  }
+  $formula: calc(
+    (#{$diff}) / #{math.div($start-size - $end-size, $a - $b)} + #{$b}
+  );
+  @return #{"min(" + $a + ",max(" + $formula + "," + $b + "))"};
+}
+
+// Uses padding like margin auto, but a minimum value can be set
+@function padding-auto($min-padding, $container-width) {
+  @return #{"max(" + $min-padding + ",calc(50vw - " +
+    math.div($container-width, 2) + "))"};
+}
+
+// Inline ternary substitute
+@function ternary($condition, $value1, $value2) {
+  @if ($condition) {
+    @return $value1;
+  } @else {
+    @return $value2;
+  }
+}
+
+// Use this mixin instead of invoking the :hover pseudo class regularly to
+// Make certain styles only apply with a mouse/cursor device and not touch
+@mixin hover() {
+  html:not(.is-touch) &:hover {
+    @content;
+  }
+  html.is-touch &:active {
+    @content;
+  }
+}
+
+// Use these mixins to define an animation that uses seconds instead of
+// percentages to define keyframes
+$global-duration: 1s;
+@mixin animation($name, $duration) {
+  $global-duration: $duration !global;
+  @keyframes #{$name} {
+    @content;
+  }
+  $global-duration: 1s !global;
+}
+// This is meant to always be called within the animation mixin
+@mixin keyframe($time) {
+  #{math.div($time, $global-duration) * 100%} {
+    @content;
+  }
+}
+
+// Transitions the value of $a and $b where $a is returned when
+// screen size matches $start-size and $b is returned when the
+// screen size matches $end-size and returns a mix of the two
+// values while between those screen sizes
+// This version is uses media queries unlike the inline version
+@mixin transition($property, $a, $b, $start-size, $end-size) {
+  $diff: "100vw - " + #{$end-size};
+  // If the starting num is smaller than the end num, reverse the formula
+  @if ($a < $b) {
+    $diff: #{$start-size} + " - 100vw";
+    $temp: $a;
+    $a: $b;
+    $b: $temp;
+  }
+  $formula: calc(
+    (#{$diff}) / #{math.div($start-size - $end-size, $a - $b)} + #{$b}
+  );
+  // @return #{"min(" + $a + ",max(" + $formula + "," + $b + "))"};
+  @media (min-width: #{$start-size + 1px}) {
+    #{$property}: $a;
+  }
+  @media (max-width: $start-size) and (min-width: #{$end-size + 1px}) {
+    #{$property}: $formula;
+  }
+  @media (max-width: $end-size) {
+    #{$property}: $b;
+  }
+}
+
+@mixin scope-with($filepath) {
+  /*! scope with: #{$filepath} */
+  @content;
+  /*! end scope */
+}

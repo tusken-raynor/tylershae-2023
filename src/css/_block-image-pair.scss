@@ -1,0 +1,42 @@
+.image-pair-block {
+  display: flex;
+  padding: 16px;
+  gap: 16px;
+  @media (max-width: $small-width) {
+    flex-direction: column;
+  }
+}
+
+.image-pair-image {
+  flex: 1 1 50%;
+  max-width: 50%;
+  position: relative;
+  display: block;
+  @media (max-width: $small-width) {
+    max-width: 478%;
+    margin: 0 auto;
+  }
+  .previewed-image.hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.1s ease;
+    width: 100%;
+    height: 100%;
+    img {
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  @include hover {
+    .previewed-image.loaded ~ .previewed-image.hover.loaded {
+      opacity: 1;
+    }
+  }
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+}

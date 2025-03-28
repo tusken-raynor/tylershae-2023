@@ -1,0 +1,474 @@
+@include scope-with("components/header.php") {
+  $vertical-padding: 30px;
+  $vertical-padding-collapsed: 12px;
+  $menu-break: 850px;
+  header {
+    height: var(--qch);
+    position: relative;
+  }
+  .full-size-ref {
+    position: absolute;
+    height: 20px;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+  .container-wrapper {
+    background-color: $darkness;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+  }
+  .container-full {
+    display: flex;
+    padding: $vertical-padding-collapsed 36px;
+
+    @media (min-width: $small-width-up) {
+      transition: padding 0.4s ease;
+      .full-size-ref:is(.in-view, .init) + .container-wrapper & {
+        padding: $vertical-padding 36px;
+      }
+    }
+    @media (max-width: $small-width) {
+      padding: 16px 20px;
+    }
+  }
+
+  .menu {
+    display: flex;
+    flex: 1 1 100px;
+  }
+  .logo {
+    max-width: 41px;
+    align-self: center;
+    flex-shrink: 0;
+    @media (max-width: $menu-break) {
+      display: none;
+    }
+    &::before {
+      content: "";
+      display: block;
+      width: 41px;
+      aspect-ratio: 41/ 43;
+      $mask: url(../img/tsp-logo.svg) no-repeat center/contain;
+      -webkit-mask: $mask;
+      mask: $mask;
+      background-color: $orange;
+    }
+    @include hover {
+      animation: logo_s_glitch 1.2s forwards;
+      @media (prefers-reduced-motion: reduce) {
+        animation: none;
+      }
+    }
+  }
+  .logo-mobile:scoped {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @media (min-width: #{($menu-break + 1px)}) {
+      display: none;
+    }
+    &::before {
+      content: "";
+      display: block;
+      width: 50%;
+      aspect-ratio: 41/ 43;
+      $mask: url(../img/tsp-logo.svg) no-repeat center/contain;
+      -webkit-mask: $mask;
+      mask: $mask;
+      background-color: $orange;
+    }
+  }
+  nav:scoped {
+    display: flex;
+    padding: 0 20px;
+
+    @media (max-width: $menu-break) {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: min(250px, 100vw);
+      box-sizing: border-box;
+      background-color: $darkness;
+      z-index: 100;
+      flex-direction: column;
+      transform: translateX(-100%);
+      transition: transform 0.4s ease, box-shadow 0.4s linear;
+      box-shadow: 0 0 0 1000px #0000;
+      padding: 70px 12px 20px;
+      overflow: auto;
+      .burger.open + & {
+        transform: translateX(0);
+        box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.3);
+        body.bg-style-dark & {
+          box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.8);
+        }
+      }
+    }
+
+    #menu-main-menu {
+      display: flex;
+      @media (max-width: $menu-break) {
+        flex-direction: column;
+        padding: 0 20px;
+      }
+
+      > li {
+        position: relative;
+        display: flex;
+        align-items: center;
+        @media (max-width: $menu-break) {
+          flex-direction: column;
+          align-items: stretch;
+          padding-bottom: 12px;
+        }
+        > a {
+          margin: 0 20px;
+          color: #fff;
+          font-size: 15px;
+          text-transform: uppercase;
+          transition: color 0.3s linear;
+          @include hover {
+            color: $orange;
+          }
+          @media (max-width: $menu-break) {
+            margin: 0;
+            margin-bottom: 8px;
+            &.active + .sub-menu {
+              height: auto;
+            }
+          }
+        }
+        .sub-menu {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          transform: scaleY(0);
+          transform-origin: 50% $vertical-padding;
+          padding-top: $vertical-padding;
+          color: $darkness;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+          z-index: 100;
+          transition: transform 0.2s ease 0.1s, color 0.1s linear;
+          body.bg-style-dark & {
+            @media (min-width: #{$menu-break + 1px}) {
+              color: $dark-grey;
+            }
+          }
+          @media (max-width: $menu-break) {
+            position: initial;
+            transform: none;
+            color: #fff;
+            padding: 0;
+            padding-left: 12px;
+            height: 0px;
+            overflow: hidden;
+            transition: height 0.2s ease;
+          }
+          > li {
+            padding: 6px 12px;
+            color: inherit;
+            background-color: $darkness;
+            body.bg-style-dark & {
+              @media (min-width: #{$menu-break + 1px}) {
+                background-color: $dark-grey;
+              }
+            }
+            @media (min-width: #{$menu-break + 1px}) {
+              &:first-child {
+                padding-top: 12px;
+              }
+              &:last-child {
+                padding-bottom: 12px;
+              }
+            }
+            @media (max-width: $menu-break) {
+              padding: 0;
+            }
+            > a {
+              display: flex;
+              color: inherit;
+              font-size: 14px;
+              text-align: left;
+              text-transform: initial;
+              transition: color 0.1s linear;
+              @include hover {
+                color: $orange;
+              }
+              @media (max-width: $menu-break) {
+                justify-content: flex-start;
+                text-transform: capitalize;
+                padding-top: 6px;
+                padding-bottom: 6px;
+              }
+            }
+          }
+        }
+
+        &:hover {
+          .sub-menu {
+            transform: scaleY(1);
+            color: #fff;
+            body.bg-style-dark & {
+              @media (min-width: #{$menu-break + 1px}) {
+                color: #fff;
+              }
+            }
+            > li > a {
+              transition: transform 0.3s ease, color 0.3s linear 0.1s;
+            }
+          }
+        }
+      }
+    }
+    .menu-main-menu-container {
+      display: flex;
+    }
+  }
+
+  .title-logo {
+    display: flex;
+    margin: 0 20px 0px;
+    width: 300px;
+    aspect-ratio: 300 / 35;
+    font-size: 0;
+    @media (min-width: $small-width-up) {
+      transition: margin-bottom 0.4s ease;
+      .full-size-ref:is(.in-view, .init) + .container-wrapper & {
+        margin-bottom: -10px;
+      }
+    }
+    @media (max-width: $small-width) {
+      margin: 0;
+    }
+    &::before {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 100%;
+      $mask: url(../img/tsp-title-logo-2.svg) no-repeat center/contain;
+      -webkit-mask: $mask;
+      mask: $mask;
+      background-color: #fff;
+    }
+  }
+
+  .contact-wrapper {
+    flex: 1 1 100px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-end;
+    @media (max-width: $small-width) {
+      display: none;
+    }
+    &::before,
+    &::after {
+      content: "";
+      display: block;
+      flex: 1 1 40px;
+    }
+    &::after {
+      max-width: 40px;
+    }
+  }
+  .contact {
+    display: block;
+    border: 2px solid $orange;
+    align-self: center;
+    border-radius: 100px;
+    padding: 0.6em 2.4em;
+    color: #fff;
+    background-color: $orange;
+    text-transform: uppercase;
+    transition: background-color 0.3s linear, color 0.3s linear;
+    font-size: 15px;
+    font-weight: 600;
+    @include hover {
+      background-color: #fff;
+      color: $orange;
+      animation: button_glitch 1s forwards;
+      > span {
+        animation: button_glitch_span 1s forwards;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        animation: none;
+        > span {
+          animation: none;
+        }
+      }
+    }
+    @media (min-width: #{$menu-break+1px}) {
+      &.mobile {
+        display: none;
+      }
+    }
+    @media (max-width: $menu-break) {
+      align-self: flex-start;
+      margin: 20px 20px 0;
+      &:not(.mobile) {
+        display: none;
+      }
+    }
+  }
+
+  .burger {
+    align-self: center;
+    width: 30px;
+    height: 26px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    @media (min-width: #{$menu-break+1px}) {
+      display: none;
+    }
+  }
+  .pattie {
+    width: 100%;
+    height: 3px;
+    background-color: $orange;
+    border-radius: 100px;
+  }
+
+  .exit-menu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 20px;
+    width: 30px;
+    height: 30px;
+    // Create an X pattern using the pseudo elements
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: inherit;
+      height: 2px;
+      background-color: #fff;
+    }
+    &::before {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+    &::after {
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
+    @media (min-width: #{$menu-break+1px}) {
+      display: none;
+    }
+  }
+}
+
+@keyframes button_glitch {
+  0% {
+    box-shadow: 3px 4px 0px 0px #ff00ff88, -3px -4px 0px 0px #00ffff88;
+  }
+  40% {
+    box-shadow: none;
+  }
+  50% {
+    box-shadow: 3px -2px 0px 0px #ff00ff88, 3px 3px 0px 0px #00ffff88;
+  }
+  60% {
+    box-shadow: none;
+  }
+  65% {
+    box-shadow: -4px 4px 0px 0px #ff00ff88, 6px -2px 0px 0px #00ffff88;
+    transform: none;
+  }
+  68% {
+    box-shadow: none;
+    transform: skewX(32deg);
+  }
+  78% {
+    box-shadow: 5px -4px 0px 0px #ff00ff88, 2px 4px 0px 0px #00ffff88;
+    transform: none;
+  }
+  82% {
+    box-shadow: none;
+  }
+  93% {
+    box-shadow: none;
+  }
+  94%,
+  100% {
+    box-shadow: 2px 3px 0px 0px #ff00ff88, -3px -2px 0px 0px #00ffff88;
+  }
+}
+@keyframes button_glitch_span {
+  0% {
+    filter: url(#button_glitch);
+  }
+  40% {
+    filter: none;
+  }
+  50% {
+    filter: url(#button_glitch_neg);
+  }
+  57% {
+    filter: url(#button_glitch);
+  }
+  62% {
+    filter: url(#button_glitch);
+  }
+  68% {
+    filter: none;
+  }
+  78% {
+    filter: url(#button_glitch_neg);
+  }
+  82% {
+    filter: none;
+  }
+  100% {
+    filter: none;
+    filter: url(#button_glitch_sml);
+  }
+}
+@keyframes logo_s_glitch {
+  0% {
+    filter: url(#std_glitch);
+    box-shadow: none;
+  }
+  40% {
+    filter: none;
+    box-shadow: none;
+  }
+  50% {
+    filter: url(#std_glitch_neg) drop-shadow(3px -2px 0px #ff00ff88)
+      drop-shadow(1px 2px 0px #00ffff88);
+  }
+  57% {
+    filter: url(#std_glitch) drop-shadow(1px 3px 0px #ff00ff88)
+      drop-shadow(2px -1px 0px #00ffff88);
+  }
+  62% {
+    filter: url(#std_glitch);
+    box-shadow: none;
+  }
+  68% {
+    filter: none;
+    box-shadow: none;
+  }
+  78% {
+    filter: url(#std_glitch_neg) drop-shadow(1px 3px 0px #ff00ff88)
+      drop-shadow(-1px -2px 0px #00ffff88);
+  }
+  82% {
+    filter: none;
+  }
+  100% {
+    filter: none;
+    box-shadow: none;
+  }
+}

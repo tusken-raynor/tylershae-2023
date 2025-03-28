@@ -1,0 +1,112 @@
+@include scope-with("blocks/link-row.php") {
+  .link-row-block {
+    display: flex;
+    justify-content: center;
+    padding: 24px 0;
+    overflow: hidden;
+    @media (min-width: $small-width-up) {
+      &[data-sv]:not([data-idfsv]) {
+        flex-direction: column;
+      }
+      &[data-jumper]:not([data-idfsv]) {
+        justify-content: flex-start;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      &.link-row-block.link-row-block {
+        flex-direction: row;
+        justify-content: center;
+      }
+    }
+  }
+  .jumper-platform {
+    width: 38px;
+    aspect-ratio: 220/264;
+    position: relative;
+    margin: -38px auto 0;
+    .jumper:scoped {
+      width: 100%;
+      height: 100%;
+      display: block;
+      content: "";
+      background: url(../img/stickman-running.gif) no-repeat center/contain;
+      transform: scaleX(-1);
+      > img {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+    }
+    body.bg-style-dark & {
+      filter: invert(1);
+      mix-blend-mode: screen;
+    }
+    .link-row-block[data-sv*="-"] & .jumper {
+      transform: scaleX(1);
+    }
+    .link-row-block[data-idfsv] & {
+      display: none;
+    }
+    .link-row-block.jump & {
+      animation: jump 2.4s cubic-bezier(0.59, 0.24, 0.72, 0.7) forwards;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      display: none;
+    }
+  }
+  .link-wrap {
+    display: flex;
+    justify-content: inherit;
+    width: fit-content;
+    gap: bend(78px, 48px, $large-width, $small-width);
+    position: relative;
+    &[style*="--rev-width"]::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: var(--rev-width);
+      height: 100%;
+      background-color: #f00;
+    }
+  }
+  .link {
+    position: relative;
+    font: 400 bend(20px, 16px, $medium-width, $xsmall-width) / 100% $fnt-alm;
+    color: #fff;
+    background-color: color.change($orange, $alpha: 0.4);
+    border: 2px solid $orange;
+    border-radius: 100px;
+    padding: 0.5em 1em;
+    white-space: nowrap;
+    transition: background-color 0.3s linear;
+    @include hover {
+      background-color: color.change($orange, $alpha: 0.8);
+    }
+    &.mobile {
+      display: none;
+    }
+    @media (max-width: $small-width) {
+      &.mobile {
+        display: block;
+      }
+    }
+  }
+  @keyframes jump {
+    0% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-62.2%);
+    }
+    55% {
+      transform: translateY(-70%);
+    }
+    65% {
+      transform: translateY(-67.2%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+}
