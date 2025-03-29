@@ -272,6 +272,19 @@ export default {
       },
     };
   },
+  getMatchingAncestors<T extends Element>(element: T, selector: string): T[] {
+    const ancestors: any[] = [];
+    let current = element.parentElement;
+
+    while (current) {
+      if (current.matches(selector)) {
+        ancestors.push(current);
+      }
+      current = current.parentElement;
+    }
+
+    return ancestors;
+  },
 };
 
 function getScrollPosition(

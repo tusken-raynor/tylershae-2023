@@ -55,7 +55,7 @@
       color: $grey;
     }
     :focus-within > & {
-      color: $orange;
+      color: $purple;
     }
   }
 
@@ -76,14 +76,14 @@
     line-height: 1.5;
     &:focus {
       outline: none;
-      border-color: $orange;
+      border-color: $purple;
     }
   }
 
   .frm_button_submit {
-    background-color: $orange;
+    background-color: $purple;
     border-radius: 100px;
-    border: 2px solid $orange;
+    border: 2px solid $purple;
     color: #fff;
     transition: color 0.2s linear, background-color 0.2s linear;
     font-size: 16px;
@@ -93,7 +93,7 @@
     cursor: pointer;
     @include hover {
       background-color: #fff;
-      color: $orange;
+      color: $purple;
     }
   }
 }

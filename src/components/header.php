@@ -12,7 +12,7 @@
         <nav id="main-menu">
           <a class="logo-mobile" href="/"></a><?php
           wp_nav_menu(array(
-            'depth' => 2,
+            'depth' => 4,
             'sort_column'	=> 'menu_order',
             'menu' => 'Main Menu'
           )); ?>
@@ -22,6 +22,7 @@
           ><?= get_field("contact_button_label", "global_options")?:'Contact' ?></a>
           <div class="exit-menu"></div>
         </nav>
+        <div class="mobile-shadow"></div>
       </div>
       <a href="/" class="title-logo">Tyler Shae</a>
       <div class="contact-wrapper">

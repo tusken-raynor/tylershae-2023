@@ -74,14 +74,14 @@
     position: relative;
     font: 400 bend(20px, 16px, $medium-width, $xsmall-width) / 100% $fnt-alm;
     color: #fff;
-    background-color: color.change($orange, $alpha: 0.4);
-    border: 2px solid $orange;
+    background-color: color.change($purple, $alpha: 0.4);
+    border: 2px solid $purple;
     border-radius: 100px;
     padding: 0.5em 1em;
     white-space: nowrap;
     transition: background-color 0.3s linear;
     @include hover {
-      background-color: color.change($orange, $alpha: 0.8);
+      background-color: color.change($purple, $alpha: 0.8);
     }
     &.mobile {
       display: none;

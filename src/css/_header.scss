@@ -23,16 +23,19 @@
   }
   .container-full {
     display: flex;
-    padding: $vertical-padding-collapsed 36px;
+    --padding-block: #{$vertical-padding-collapsed};
+    --padding-inline: 26px;
+    padding: var(--padding-block) var(--padding-inline);
 
     @media (min-width: $small-width-up) {
       transition: padding 0.4s ease;
       .full-size-ref:is(.in-view, .init) + .container-wrapper & {
-        padding: $vertical-padding 36px;
+        --padding-block: #{$vertical-padding};
       }
     }
     @media (max-width: $small-width) {
-      padding: 16px 20px;
+      --padding-block: 16px;
+      --padding-inline: 20px;
     }
   }
 
@@ -55,7 +58,7 @@
       $mask: url(../img/tsp-logo.svg) no-repeat center/contain;
       -webkit-mask: $mask;
       mask: $mask;
-      background-color: $orange;
+      background-color: $purple;
     }
     @include hover {
       animation: logo_s_glitch 1.2s forwards;
@@ -84,12 +87,13 @@
       $mask: url(../img/tsp-logo.svg) no-repeat center/contain;
       -webkit-mask: $mask;
       mask: $mask;
-      background-color: $orange;
+      background-color: $purple;
     }
   }
   nav:scoped {
     display: flex;
     padding: 0 20px;
+    margin-block: calc(var(--padding-block) * -1);
 
     @media (max-width: $menu-break) {
       position: fixed;
@@ -106,6 +110,7 @@
       box-shadow: 0 0 0 1000px #0000;
       padding: 70px 12px 20px;
       overflow: auto;
+      margin-block: initial;
       .burger.open + & {
         transform: translateX(0);
         box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.3);
@@ -120,6 +125,26 @@
       @media (max-width: $menu-break) {
         flex-direction: column;
         padding: 0 20px;
+        box-sizing: border-box;
+        padding-inline: 0;
+      }
+
+      li {
+        @media (max-width: $menu-break) {
+          .sub-menu.sub-menu {
+            position: initial;
+            transform: none;
+            color: #fff;
+            padding: 0;
+            padding-left: 12px;
+            height: 0px;
+            overflow: hidden;
+            transition: height 0.2s ease;
+          }
+          a.active + .sub-menu {
+            height: auto;
+          }
+        }
       }
 
       > li {
@@ -138,71 +163,45 @@
           text-transform: uppercase;
           transition: color 0.3s linear;
           @include hover {
-            color: $orange;
+            color: $purple;
           }
           @media (max-width: $menu-break) {
             margin: 0;
             margin-bottom: 8px;
-            &.active + .sub-menu {
-              height: auto;
-            }
           }
         }
         .sub-menu {
           position: absolute;
           top: 100%;
           left: 0;
-          transform: scaleY(0);
-          transform-origin: 50% $vertical-padding;
-          padding-top: $vertical-padding;
+          transform-origin: 50% 0;
           color: $darkness;
+          background-color: $darkness;
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
           z-index: 100;
           transition: transform 0.2s ease 0.1s, color 0.1s linear;
+          padding-block: 6px;
           body.bg-style-dark & {
             @media (min-width: #{$menu-break + 1px}) {
               color: $dark-grey;
             }
           }
-          @media (max-width: $menu-break) {
-            position: initial;
-            transform: none;
-            color: #fff;
-            padding: 0;
-            padding-left: 12px;
-            height: 0px;
-            overflow: hidden;
-            transition: height 0.2s ease;
-          }
           > li {
-            padding: 6px 12px;
+            position: relative;
             color: inherit;
-            background-color: $darkness;
-            body.bg-style-dark & {
-              @media (min-width: #{$menu-break + 1px}) {
-                background-color: $dark-grey;
-              }
-            }
-            @media (min-width: #{$menu-break + 1px}) {
-              &:first-child {
-                padding-top: 12px;
-              }
-              &:last-child {
-                padding-bottom: 12px;
-              }
-            }
             @media (max-width: $menu-break) {
               padding: 0;
             }
             > a {
               display: flex;
               color: inherit;
+              padding: 6px 12px;
               font-size: 14px;
               text-align: left;
               text-transform: initial;
-              transition: color 0.1s linear;
+              transition: background-color 0.2s linear;
               @include hover {
-                color: $orange;
+                background-color: #fff2;
               }
               @media (max-width: $menu-break) {
                 justify-content: flex-start;
@@ -211,27 +210,87 @@
                 padding-bottom: 6px;
               }
             }
+            &.menu-item-has-children > a::after {
+              // content: "›";
+              margin-left: 0.4em;
+              font-size: 1.3em;
+            }
+          }
+        }
+
+        .sub-menu .sub-menu {
+          position: relative;
+          padding-block: 0;
+          // top: 0;
+          // left: 100%;
+        }
+        // Handle the height transition for all further sub-menus
+        @media (min-width: #{$menu-break + 1px}) {
+          .sub-menu > li > a:not(.active) + .sub-menu > li > a {
+            max-height: 0px;
+            padding-block: 0;
+            transition: max-height 0.3s ease 0.3s, padding 0.3s ease 0.3s, opacity 0.1s linear;
+            overflow: hidden;
+            opacity: 0;
+          }
+          .sub-menu > li > a.active + .sub-menu > li > a {
+            max-height: 32px;
+            transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.15s linear 0.17s;
+            opacity: 1;
+          }
+        }
+        $depth-colors: $purple, $light-purple;
+        $depth-selector: ".sub-menu";
+        @for $i from 2 to 4 {
+          $depth-selector: "#{$depth-selector} .sub-menu";
+          $color: nth($depth-colors, $i - 1);
+          #{$depth-selector} > li > a {
+            padding-left: #{12 + 16 * ($i - 1)}px;
+            color: $color;
           }
         }
 
         &:hover {
           .sub-menu {
-            transform: scaleY(1);
             color: #fff;
             body.bg-style-dark & {
               @media (min-width: #{$menu-break + 1px}) {
                 color: #fff;
               }
             }
-            > li > a {
+            > li {
               transition: transform 0.3s ease, color 0.3s linear 0.1s;
             }
+          }
+        }
+      }
+
+      // Handle the scaling for the first level sub-menu
+      > li { 
+        > .sub-menu {
+          transform: scaleY(0);
+        }
+        &:hover {
+          > .sub-menu {
+            transform: scaleY(1);
           }
         }
       }
     }
     .menu-main-menu-container {
       display: flex;
+    }
+  }
+
+  .mobile-shadow {
+    display: none;
+    @media (max-width: $menu-break) {
+      display: block;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      width: calc(100vw - min(250px, 100vw));
     }
   }
 
@@ -282,19 +341,19 @@
   }
   .contact {
     display: block;
-    border: 2px solid $orange;
+    border: 2px solid $purple;
     align-self: center;
     border-radius: 100px;
     padding: 0.6em 2.4em;
     color: #fff;
-    background-color: $orange;
+    background-color: $purple;
     text-transform: uppercase;
     transition: background-color 0.3s linear, color 0.3s linear;
     font-size: 15px;
     font-weight: 600;
     @include hover {
       background-color: #fff;
-      color: $orange;
+      color: $purple;
       animation: button_glitch 1s forwards;
       > span {
         animation: button_glitch_span 1s forwards;
@@ -335,7 +394,7 @@
   .pattie {
     width: 100%;
     height: 3px;
-    background-color: $orange;
+    background-color: $purple;
     border-radius: 100px;
   }
 
