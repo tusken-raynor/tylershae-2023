@@ -60,6 +60,23 @@ export default (context: Document | Element = document) => {
       }
     });
   });
+  // Remove all active classes from within a dropdown if the parent is no longer hovered
+  const topLevelMenuItems = context.querySelectorAll<HTMLElement>("#menu-main-menu > li");
+  topLevelMenuItems.forEach((item) => {
+    item.addEventListener("mouseleave", () => {
+      const activeItems = Array.from(item.querySelectorAll<HTMLElement>("a.active"));
+      activeItems.forEach((x) => {
+        if (innerWidth <= 850) {
+          const cont = x.nextElementSibling! as HTMLElement;
+          cont.style.height = getChildrenHeight(cont) + "px";
+          requestAnimationFrame(() => {
+            cont.style.height = "";
+          });
+        }
+        x.classList.remove("active");
+      });
+    });
+  });
   // Remove the init class from the header full-size-ref
   const headerFullSizeRef = context.querySelector<HTMLElement>("header .full-size-ref");
   if (headerFullSizeRef) {
